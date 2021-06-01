@@ -2,7 +2,9 @@
     package="com.example.pipe_reader_qr">
    <application
         android:label="pipeReaderQR"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:name="androidx.multidex.MultiDexApplication">
+         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBx_UdCIFliZgn39Kk13de8-VOo4edNXdA"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

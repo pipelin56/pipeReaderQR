@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pipe_reader_qr/src/pages/directions_page.dart';
-import 'package:pipe_reader_qr/src/pages/maps_pages.dart';
+import 'package:pipe_reader_qr/src/pages/maps_page.dart';
+import 'package:pipe_reader_qr/src/pages/scan_list_provider.dart';
 import 'package:pipe_reader_qr/src/providers/ui_provider.dart';
 import 'package:pipe_reader_qr/src/widgets/custom_navigation_bar.dart';
 import 'package:pipe_reader_qr/src/widgets/scan_button.dart';
@@ -16,7 +17,10 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.delete_forever),
-            onPressed: () {},
+            onPressed: () {
+              Provider.of<ScanListProvider>(context, listen: false)
+                  .deleteAllScans();
+            },
           )
         ],
       ),
@@ -35,10 +39,15 @@ class _HomePageBody extends StatelessWidget {
     final uiProvider = Provider.of<UiProvider>(context);
     final currentIndex = uiProvider.selectedMenuOpt; //default
 
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
+
     switch (currentIndex) {
       case 0:
+        scanListProvider.loadScansByType("geo");
         return MapsPage();
       case 1:
+        scanListProvider.loadScansByType("http");
         return DirectionsPage();
       default:
         return MapsPage();
